@@ -1,0 +1,164 @@
+{
+	"name": "jvm-bytecode-viewer",
+	"displayName": "JVM Bytecode Viewer",
+	"description": "Show the JVM Bytecode for a .class file",
+	"icon": "images/icon.png",
+	"version": "0.1.0",
+	"publisher": "mnxn",
+	"license": "MIT",
+	"categories": [
+		"Programming Languages",
+		"Other"
+	],
+	"keywords": [
+		"java bytecode",
+		"jvm bytecode",
+		"bytecode",
+		"jvm",
+		"javap"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mnxn/vscode-jvm-bytecode-viewer"
+	},
+	"homepage": "https://github.com/mnxn/vscode-jvm-bytecode-viewer/blob/master/README.md",
+	"engines": {
+		"vscode": "^1.44.0"
+	},
+	"activationEvents": [
+		"onCommand:jvm-bytecode-viewer.show-bytecode",
+		"onCommand:jvm-bytecode-viewer.show-bytecode-verbose"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "JVM Bytecode Viewer",
+			"properties": {
+				"jvm-bytecode-viewer.verboseDefault": {
+					"type": "boolean",
+					"default": false,
+					"description": "whether the title bar button shows the verbose output"
+				},
+				"jvm-bytecode-viewer.showEditorTitle": {
+					"type": "boolean",
+					"default": true,
+					"description": "whether to show commands in the editor title bar menu"
+				},
+				"jvm-bytecode-viewer.showEditorTitleContext": {
+					"type": "boolean",
+					"default": true,
+					"description": "whether to show commands in the editor title bar context menu"
+				},
+				"jvm-bytecode-viewer.showExplorerContext": {
+					"type": "boolean",
+					"default": true,
+					"description": "whether to show commands in the explorer context menu"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "jvm-bytecode-viewer.show-bytecode",
+				"title": "Show JVM Bytecode"
+			},
+			{
+				"command": "jvm-bytecode-viewer.show-bytecode-verbose",
+				"title": "Show JVM Bytecode (Verbose)"
+			}
+		],
+		"menus": {
+			"editor/title": [
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode",
+					"alt": "jvm-bytecode-viewer.show-bytecode-verbose",
+					"when": "resourceExtname == .class && !config.jvm-bytecode-viewer.verboseDefault && config.jvm-bytecode-viewer.showEditorTitle",
+					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
+					"alt": "jvm-bytecode-viewer.show-bytecode",
+					"when": "resourceExtname == .class && config.jvm-bytecode-viewer.verboseDefault && config.jvm-bytecode-viewer.showEditorTitle",
+					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode",
+					"when": "resourceExtname == .verbose && config.jvm-bytecode-viewer.showEditorTitle",
+					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
+					"when": "resourceExtname == .bytecode && config.jvm-bytecode-viewer.showEditorTitle",
+					"group": "navigation"
+				}
+			],
+			"editor/title/context": [
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode",
+					"when": "resourceExtname == .class && config.jvm-bytecode-viewer.showEditorTitleContext",
+					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
+					"when": "resourceExtname == .class && config.jvm-bytecode-viewer.showEditorTitleContext",
+					"group": "navigation"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode",
+					"when": "resourceExtname == .class && !explorerResourceIsFolder && config.jvm-bytecode-viewer.showExplorerContext",
+					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
+					"when": "resourceExtname == .class && !explorerResourceIsFolder && config.jvm-bytecode-viewer.showExplorerContext",
+					"group": "navigation"
+				}
+			]
+		},
+		"languages": [
+			{
+				"id": "jvm-bytecode",
+				"aliases": [
+					"JVM Bytecode"
+				],
+				"extensions": [
+					".bytecode"
+				],
+				"configuration": "./configurations/jvm-bytecode.json"
+			},
+			{
+				"id": "jvm-bytecode-verbose",
+				"aliases": [
+					"JVM Bytecode (Verbose)"
+				],
+				"extensions": [
+					".bytecode.verbose"
+				],
+				"configuration": "./configurations/jvm-bytecode.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "jvm-bytecode",
+				"scopeName": "source.jvm-bytecode",
+				"path": "./syntaxes/jvm-bytecode.json"
+			},
+			{
+				"language": "jvm-bytecode-verbose",
+				"scopeName": "source.jvm-bytecode-verbose",
+				"path": "./syntaxes/jvm-bytecode-verbose.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.44.0",
+		"@types/node": "^13.11.0",
+		"typescript": "^3.8.3"
+	}
+}
