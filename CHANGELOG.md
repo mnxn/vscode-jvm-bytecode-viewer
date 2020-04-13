@@ -1,4 +1,4 @@
-## [Unreleased]
+## 0.2.0
 
 - Highlight `Fieldref` as field instead of method
 - Rename configuration options
