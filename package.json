@@ -34,25 +34,25 @@
 		"configuration": {
 			"title": "JVM Bytecode Viewer",
 			"properties": {
-				"jvm-bytecode-viewer.verboseDefault": {
+				"jvm-bytecode-viewer.defaultToVerboseOutput": {
 					"type": "boolean",
 					"default": false,
-					"description": "whether the title bar button shows the verbose output"
+					"description": "Whether the title bar button shows the verbose output by default"
 				},
-				"jvm-bytecode-viewer.showEditorTitle": {
+				"jvm-bytecode-viewer.editorTitleBar": {
 					"type": "boolean",
 					"default": true,
-					"description": "whether to show commands in the editor title bar menu"
+					"description": "Whether to show commands in the editor title bar menu"
 				},
-				"jvm-bytecode-viewer.showEditorTitleContext": {
+				"jvm-bytecode-viewer.editorTitleBarContextMenu": {
 					"type": "boolean",
 					"default": true,
-					"description": "whether to show commands in the editor title bar context menu"
+					"description": "Whether to show commands in the editor title bar context menu"
 				},
-				"jvm-bytecode-viewer.showExplorerContext": {
+				"jvm-bytecode-viewer.explorerContextMenu": {
 					"type": "boolean",
 					"default": true,
-					"description": "whether to show commands in the explorer context menu"
+					"description": "Whether to show commands in the explorer context menu"
 				}
 			}
 		},
@@ -71,47 +71,47 @@
 				{
 					"command": "jvm-bytecode-viewer.show-bytecode",
 					"alt": "jvm-bytecode-viewer.show-bytecode-verbose",
-					"when": "resourceExtname == .class && !config.jvm-bytecode-viewer.verboseDefault && config.jvm-bytecode-viewer.showEditorTitle",
+					"when": "resourceExtname == .class && !config.jvm-bytecode-viewer.defaultToVerboseOutput && config.jvm-bytecode-viewer.editorTitleBar",
 					"group": "navigation"
 				},
 				{
 					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
 					"alt": "jvm-bytecode-viewer.show-bytecode",
-					"when": "resourceExtname == .class && config.jvm-bytecode-viewer.verboseDefault && config.jvm-bytecode-viewer.showEditorTitle",
+					"when": "resourceExtname == .class && config.jvm-bytecode-viewer.defaultToVerboseOutput && config.jvm-bytecode-viewer.editorTitleBar",
 					"group": "navigation"
 				},
 				{
 					"command": "jvm-bytecode-viewer.show-bytecode",
-					"when": "resourceExtname == .verbose && config.jvm-bytecode-viewer.showEditorTitle",
+					"when": "resourceExtname == .verbose && config.jvm-bytecode-viewer.editorTitleBar",
 					"group": "navigation"
 				},
 				{
 					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
-					"when": "resourceExtname == .bytecode && config.jvm-bytecode-viewer.showEditorTitle",
+					"when": "resourceExtname == .bytecode && config.jvm-bytecode-viewer.editorTitleBar",
 					"group": "navigation"
 				}
 			],
 			"editor/title/context": [
 				{
 					"command": "jvm-bytecode-viewer.show-bytecode",
-					"when": "resourceExtname == .class && config.jvm-bytecode-viewer.showEditorTitleContext",
+					"when": "resourceExtname == .class && config.jvm-bytecode-viewer.editorTitleBarContextMenu",
 					"group": "navigation"
 				},
 				{
 					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
-					"when": "resourceExtname == .class && config.jvm-bytecode-viewer.showEditorTitleContext",
+					"when": "resourceExtname == .class && config.jvm-bytecode-viewer.editorTitleBarContextMenu",
 					"group": "navigation"
 				}
 			],
 			"explorer/context": [
 				{
 					"command": "jvm-bytecode-viewer.show-bytecode",
-					"when": "resourceExtname == .class && !explorerResourceIsFolder && config.jvm-bytecode-viewer.showExplorerContext",
+					"when": "resourceExtname == .class && !explorerResourceIsFolder && config.jvm-bytecode-viewer.explorerContextMenu",
 					"group": "navigation"
 				},
 				{
 					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
-					"when": "resourceExtname == .class && !explorerResourceIsFolder && config.jvm-bytecode-viewer.showExplorerContext",
+					"when": "resourceExtname == .class && !explorerResourceIsFolder && config.jvm-bytecode-viewer.explorerContextMenu",
 					"group": "navigation"
 				}
 			]
