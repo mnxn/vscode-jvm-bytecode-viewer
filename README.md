@@ -15,12 +15,12 @@ First open a compiled `.class` file, then do one of the following:
 
 ## Configuration
 
-| Option                                       | Description                                                   | Default |
-| -------------------------------------------- | ------------------------------------------------------------- | ------- |
-| `jvm-bytecode-viewer.verboseDefault`         | whether the title bar button opens the verbose output         | `false` |
-| `jvm-bytecode-viewer.showEditorTitle`        | whether to show commands in the editor title bar menu         | `true`  |
-| `jvm-bytecode-viewer.showEditorTitleContext` | whether to show commands in the editor title bar context menu | `true`  |
-| `jvm-bytecode-viewer.showExplorerContext`    | whether to show commands in the explorer context menu         | `true`  |
+| Option                                          | Description                                                      | Default |
+| ----------------------------------------------- | ---------------------------------------------------------------- | ------- |
+| `jvm-bytecode-viewer.defaultToVerboseOutput`    | Whether the title bar button opens the verbose output by default | `false` |
+| `jvm-bytecode-viewer.editorTitleBar`            | Whether to show commands in the editor title bar menu            | `true`  |
+| `jvm-bytecode-viewer.editorTitleBarContextMenu` | Whether to show commands in the editor title bar context menu    | `true`  |
+| `jvm-bytecode-viewer.explorerContextMenu`       | Whether to show commands in the explorer context menu            | `true`  |
 
 ## Examples
 
