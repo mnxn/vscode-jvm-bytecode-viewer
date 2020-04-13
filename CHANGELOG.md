@@ -1,6 +1,7 @@
 ## Unreleased
 
 - Highlight `parameter` in `RuntimeInvisibleParameterAnnotations`
+- More permissive variable highlighting in `LocalVariableTable`
 
 ## 0.2.0
 
