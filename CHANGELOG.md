@@ -1,3 +1,7 @@
+## Unreleased
+
+- Highlight `parameter` in `RuntimeInvisibleParameterAnnotations`
+
 ## 0.2.0
 
 - Highlight `Fieldref` as field instead of method
