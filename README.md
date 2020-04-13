@@ -4,6 +4,8 @@ An extension that shows the JVM Bytecode for a given `.class` file.
 
 This extension uses the `javap` program that comes with the Java JDK; make sure it is accessible from the `PATH` environmental variable.
 
+The bytecode output windows are automatically updated when the `.class` file is changed on disk.
+
 ## Usage
 
 First open a compiled `.class` file, then do one of the following:
