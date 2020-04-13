@@ -361,6 +361,15 @@
 					}
 				},
 				{
+					"comment": "RuntimeInvisibleParameterAnnotations",
+					"match": "^\\s*(parameter) ([0-9]+)(:)",
+					"captures": {
+						"1": { "name": "keyword.other.jvm-bytecode-verbose" },
+						"2": { "name": "constant.numeric.int.jvm-bytecode-verbose" },
+						"3": { "name": "keyword.other.jvm-bytecode-verbose" }
+					}
+				},
+				{
 					"comment": "MethodParameters",
 					"name": "keyword.other.jvm-bytecode-verbose",
 					"match": "^\\s*Name                           Flags$"
