@@ -1,3 +1,7 @@
+## Unreleased
+
+- Fix Exception table/unknown attribute highlighting
+
 ## 0.2.1
 
 - Highlight `parameter` in `RuntimeInvisibleParameterAnnotations`
