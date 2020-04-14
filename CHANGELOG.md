@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.2
 
 - Fix Exception table/unknown attribute highlighting
 
