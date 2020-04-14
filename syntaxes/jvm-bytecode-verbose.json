@@ -352,6 +352,28 @@
 					}
 				},
 				{
+					"comment": "Exception table",
+					"name": "keyword.other.jvm-bytecode",
+					"match": "^\\s*(Exception table:)$"
+				},
+				{
+					"comment": "Exception table",
+					"name": "keyword.other.jvm-bytecode",
+					"match": "^\\s*from    to  target type$"
+				},
+				{
+					"comment": "Exception table",
+					"name": "keyword.other.jvm-bytecode",
+					"match": "^\\s*([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+(Class|any)(.*)$",
+					"captures": {
+						"1": { "name": "constant.numeric.int.jvm-bytecode" },
+						"2": { "name": "constant.numeric.int.jvm-bytecode" },
+						"3": { "name": "constant.numeric.int.jvm-bytecode" },
+						"4": { "name": "keyword.other.jvm-bytecode" },
+						"5": { "name": "support.type.class.jvm-bytecode" }
+					}
+				},
+				{
 					"comment": "LineNumberTable",
 					"match": "^\\s*(line) ([0-9]+)(:)",
 					"captures": {
@@ -390,7 +412,7 @@
 				},
 				{
 					"comment": "LocalVariableTable",
-					"begin": "^\\s*([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+([A-Za-z0-9_$<>\\-]+)\\s+",
+					"begin": "^\\s*([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+([A-Za-z_$][A-Za-z0-9_$<>\\-]*)\\s+",
 					"end": "$",
 					"beginCaptures": {
 						"1": { "name": "constant.numeric.int.jvm-bytecode-verbose" },
@@ -428,19 +450,23 @@
 				},
 				{
 					"comment": "Unknown Attribute",
-					"match": "^\\s*([A-Za-z]+)(:) (length) = (.*) (\\(unknown attribute\\))",
-					"captures": {
+					"begin": "^\\s*([A-Za-z]+)(:) (length) = (.*) (\\(unknown attribute\\))",
+					"end": "",
+					"beginCaptures": {
 						"1": { "name": "variable.other.definition.jvm-bytecode-verbose" },
 						"2": { "name": "keyword.other.jvm-bytecode-verbose" },
 						"3": { "name": "keyword.other.jvm-bytecode-verbose" },
 						"4": { "name": "constant.numeric.hex.jvm-bytecode-verbose" },
 						"5": { "name": "comment.other.jvm-bytecode-verbose" }
-					}
-				},
-				{
-					"comment": "Hex Literals for Unknown Attribute",
-					"name": "constant.numeric.hex.jvm-bytecode-verbose",
-					"match": "^\\s+([0-9A-F]{2})( [0-9A-F]{2})*$"
+					},
+					"patterns": [
+						{
+							"comment": "Hex Literals for Unknown Attribute",
+							"name": "constant.numeric.hex.jvm-bytecode-verbose",
+							"match": "^\\s+([0-9A-F]{2})( [0-9A-F]{2})*$"
+						},
+						{ "include": "source.jvm-bytecode-verbose" }
+					]
 				},
 				{
 					"comment": "BootstrapMethods",
