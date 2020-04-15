@@ -146,7 +146,7 @@
 						"6": { "name": "comment.line.jvm-bytecode-verbose" },
 						"7": { "name": "support.type.class.jvm-bytecode-verbose" },
 						"8": { "name": "keyword.other.jvm-bytecode-verbose" },
-						"9": { "name": "variable.other.definition.jvm-bytecode" },
+						"9": { "name": "variable.other.definition.jvm-bytecode-verbose" },
 						"10": { "name": "keyword.other.jvm-bytecode-verbose" }
 					},
 					"patterns": [{ "include": "source.jvm-bytecode#descriptors" }]
