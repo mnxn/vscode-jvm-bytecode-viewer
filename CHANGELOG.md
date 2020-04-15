@@ -1,3 +1,8 @@
+## 0.2.4
+
+- Highlight `MethodHandle` constant comments in normal output
+- Highlight negative integer labels in lookup tables
+
 ## 0.2.3
 
 - Add default keyword
