@@ -151,6 +151,21 @@
 					"patterns": [{ "include": "#descriptors" }]
 				},
 				{
+					"comment": "Method Handle Constant Comment",
+					"name": "comment.line.jvm-bytecode",
+					"begin": "// (MethodHandle) ([A-Za-z_]+) (.*)(\\.)(.*)(:)",
+					"end": "$",
+					"beginCaptures": {
+						"1": { "name": "keyword.jvm-bytecode" },
+						"2": { "name": "keyword.jvm-bytecode" },
+						"3": { "name": "support.type.class.jvm-bytecode" },
+						"4": { "name": "keyword.other.jvm-bytecode" },
+						"5": { "name": "entity.name.function.opcode.jvm-bytecode" },
+						"6": { "name": "keyword.other.jvm-bytecode" }
+					},
+					"patterns": [{ "include": "#descriptors" }]
+				},
+				{
 					"name": "comment.line.jvm-bytecode",
 					"begin": "//",
 					"end": "$"
