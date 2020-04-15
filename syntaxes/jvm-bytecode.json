@@ -237,6 +237,30 @@
 						"1": { "name": "constant.language.jvm-bytecode" },
 						"2": { "name": "keyword.other.jvm-bytecode" }
 					}
+				},
+				{ "include": "#exception-table" }
+			]
+		},
+		"exception-table": {
+			"patterns": [
+				{
+					"name": "keyword.other.jvm-bytecode",
+					"match": "^\\s*(Exception table:)$"
+				},
+				{
+					"name": "keyword.other.jvm-bytecode",
+					"match": "^\\s*from    to  target type$"
+				},
+				{
+					"name": "keyword.other.jvm-bytecode",
+					"match": "^\\s*([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+(Class|any)(.*)$",
+					"captures": {
+						"1": { "name": "constant.numeric.int.jvm-bytecode" },
+						"2": { "name": "constant.numeric.int.jvm-bytecode" },
+						"3": { "name": "constant.numeric.int.jvm-bytecode" },
+						"4": { "name": "keyword.other.jvm-bytecode" },
+						"5": { "name": "support.type.class.jvm-bytecode" }
+					}
 				}
 			]
 		},

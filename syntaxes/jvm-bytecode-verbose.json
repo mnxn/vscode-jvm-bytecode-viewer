@@ -334,6 +334,7 @@
 		},
 		"metadata": {
 			"patterns": [
+				{ "include": "source.jvm-bytecode#exception-table" },
 				{
 					"begin": "^\\s*(descriptor:)",
 					"end": "$",
@@ -349,28 +350,6 @@
 						"4": { "name": "constant.numeric.int.jvm-bytecode-verbose" },
 						"5": { "name": "keyword.other.jvm-bytecode-verbose" },
 						"6": { "name": "constant.numeric.int.jvm-bytecode-verbose" }
-					}
-				},
-				{
-					"comment": "Exception table",
-					"name": "keyword.other.jvm-bytecode",
-					"match": "^\\s*(Exception table:)$"
-				},
-				{
-					"comment": "Exception table",
-					"name": "keyword.other.jvm-bytecode",
-					"match": "^\\s*from    to  target type$"
-				},
-				{
-					"comment": "Exception table",
-					"name": "keyword.other.jvm-bytecode",
-					"match": "^\\s*([0-9]+)\\s+([0-9]+)\\s+([0-9]+)\\s+(Class|any)(.*)$",
-					"captures": {
-						"1": { "name": "constant.numeric.int.jvm-bytecode" },
-						"2": { "name": "constant.numeric.int.jvm-bytecode" },
-						"3": { "name": "constant.numeric.int.jvm-bytecode" },
-						"4": { "name": "keyword.other.jvm-bytecode" },
-						"5": { "name": "support.type.class.jvm-bytecode" }
 					}
 				},
 				{
