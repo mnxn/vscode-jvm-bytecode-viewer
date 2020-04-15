@@ -1,3 +1,8 @@
+## 0.2.3
+
+- Add default keyword
+- Fix Exception table highlighting in both minimal and verbose outputs
+
 ## 0.2.2
 
 - Fix Exception table/unknown attribute highlighting
