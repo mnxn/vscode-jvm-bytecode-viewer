@@ -247,7 +247,7 @@
 					"match": "^\\s*default:"
 				},
 				{
-					"match": "^\\s*([0-9]+)(:)",
+					"match": "^\\s*(-?[0-9]+)(:)",
 					"captures": {
 						"1": { "name": "constant.language.jvm-bytecode" },
 						"2": { "name": "keyword.other.jvm-bytecode" }
