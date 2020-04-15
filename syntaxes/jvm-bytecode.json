@@ -218,7 +218,7 @@
 		},
 		"keywords": {
 			"name": "keyword.jvm-bytecode",
-			"match": "\\b(abstract|class|extends|final|implements|interface|module|native|private|protected|public|static|synchronized|throws|transient|volatile)\\b"
+			"match": "\\b(abstract|class|default|extends|final|implements|interface|module|native|private|protected|public|static|synchronized|throws|transient|volatile)\\b"
 		},
 		"labels": {
 			"patterns": [
