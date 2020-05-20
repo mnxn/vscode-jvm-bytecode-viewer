@@ -1,3 +1,8 @@
+## 0.2.5
+
+- Highlight md5 checksum in verbose output correctly
+- Highlight unknown attributes in verbose output for older java version
+
 ## 0.2.4
 
 - Highlight `MethodHandle` constant comments in normal output

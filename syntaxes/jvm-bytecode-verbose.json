@@ -46,7 +46,7 @@
 				},
 				{
 					"name": "comment.line.jvm-bytecode-verbose",
-					"match": "^\\s*SHA-256 checksum (.*)$",
+					"match": "^\\s*(?:SHA-256|MD5) checksum (.*)$",
 					"captures": {
 						"1": { "name": "string.other.jvm-bytecode-verbose" }
 					}
@@ -417,19 +417,33 @@
 					}
 				},
 				{
-					"comment": "Signature",
-					"begin": "^\\s*(Signature:)\\s*(#[0-9]+)\\s*(//)",
-					"end": "$",
-					"beginCaptures": {
-						"1": { "name": "keyword.other.jvm-bytecode-verbose" },
-						"2": { "name": "constant.symbol.jvm-bytecode-verbose" },
-						"3": { "name": "comment.other.jvm-bytecode-verbose" }
-					},
-					"patterns": [{ "include": "#signatures" }]
+					"comment": "Error: unknown attribute",
+					"match": "^(Error:) (unknown attribute)$",
+					"name": "keyword.other.jvm-bytecode-verbose"
 				},
 				{
 					"comment": "Unknown Attribute",
-					"begin": "^\\s*([A-Za-z]+)(:) (length) = (.*) (\\(unknown attribute\\))",
+					"begin": "^\\s*([A-Za-z]+)(:) (length) = (.*)( \\(unknown attribute\\))?",
+					"end": "",
+					"beginCaptures": {
+						"1": { "name": "variable.other.definition.jvm-bytecode-verbose" },
+						"2": { "name": "keyword.other.jvm-bytecode-verbose" },
+						"3": { "name": "keyword.other.jvm-bytecode-verbose" },
+						"4": { "name": "constant.numeric.hex.jvm-bytecode-verbose" },
+						"5": { "name": "comment.other.jvm-bytecode-verbose" }
+					},
+					"patterns": [
+						{
+							"comment": "Hex Literals for Unknown Attribute",
+							"name": "constant.numeric.hex.jvm-bytecode-verbose",
+							"match": "^\\s+([0-9A-F]{2})( [0-9A-F]{2})*$"
+						},
+						{ "include": "source.jvm-bytecode-verbose" }
+					]
+				},
+				{
+					"comment": "Unknown Attribute",
+					"begin": "^\\s*([A-Za-z]+)(:) (length) = (.*)( \\(unknown attribute\\))?",
 					"end": "",
 					"beginCaptures": {
 						"1": { "name": "variable.other.definition.jvm-bytecode-verbose" },
