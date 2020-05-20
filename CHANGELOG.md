@@ -1,3 +1,7 @@
+## 0.2.6
+
+- Bugfix
+
 ## 0.2.5
 
 - Highlight md5 checksum in verbose output correctly

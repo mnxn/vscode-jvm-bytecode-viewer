@@ -417,6 +417,17 @@
 					}
 				},
 				{
+					"comment": "Signature",
+					"begin": "^\\s*(Signature:)\\s*(#[0-9]+)\\s*(//)",
+					"end": "$",
+					"beginCaptures": {
+						"1": { "name": "keyword.other.jvm-bytecode-verbose" },
+						"2": { "name": "constant.symbol.jvm-bytecode-verbose" },
+						"3": { "name": "comment.other.jvm-bytecode-verbose" }
+					},
+					"patterns": [{ "include": "#signatures" }]
+				},
+				{
 					"comment": "Error: unknown attribute",
 					"match": "^(Error:) (unknown attribute)$",
 					"name": "keyword.other.jvm-bytecode-verbose"

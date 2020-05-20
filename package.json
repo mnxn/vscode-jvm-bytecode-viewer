@@ -3,7 +3,7 @@
 	"displayName": "JVM Bytecode Viewer",
 	"description": "Show the JVM Bytecode for a .class file",
 	"icon": "images/icon.png",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"publisher": "mnxn",
 	"license": "MIT",
 	"categories": [
