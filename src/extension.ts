@@ -1,108 +1,67 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import * as child_process from "child_process";
 
-const output = vscode.window.createOutputChannel("JVM Bytecode Viewer");
+import JavapContentProvider from "./JavapContentProvider";
+import { JarTreeDataProvider, JarNode } from "./JarTreeDataProvider";
+import * as utils from "./utils";
 
 export function activate(context: vscode.ExtensionContext) {
-	output.appendLine("Activated.");
+	utils.output.appendLine("Activated.");
 
-	const provider = new JavapContentProvider();
-	context.subscriptions.push(vscode.workspace.registerTextDocumentContentProvider("javap", provider));
-
-	async function showBytecode(fileUri: vscode.Uri, { verbose = false }: { verbose?: boolean } = {}) {
-		const currentFile = await getCurrentFile(fileUri);
-		const currentClassFile = classFile(currentFile.fsPath);
-		const bytecodePath = bytecodeFile(currentClassFile, { verbose });
-		const bytecodeUri = vscode.Uri.file(bytecodePath).with({ scheme: "javap" });
-
-		const textDocument = await vscode.workspace.openTextDocument(bytecodeUri);
-		vscode.window.showTextDocument(textDocument);
-
-		const fsWatcher = fs.watch(currentClassFile, () => {
-			output.appendLine(`Updated: ${bytecodePath}`);
-			provider.onDidChangeEmitter.fire(bytecodeUri);
-		});
-		context.subscriptions.push({ dispose: () => fsWatcher.close() });
-	}
+	const javapProvider = new JavapContentProvider();
+	const jarProvider = new JarTreeDataProvider();
 
 	context.subscriptions.push(
+		utils.output,
+
+		vscode.workspace.registerTextDocumentContentProvider("javap", javapProvider),
 		vscode.commands.registerCommand("jvm-bytecode-viewer.show-bytecode", async (fileUri: vscode.Uri) => {
 			await showBytecode(fileUri);
-		})
-	);
-
-	context.subscriptions.push(
+		}),
 		vscode.commands.registerCommand("jvm-bytecode-viewer.show-bytecode-verbose", async (fileUri: vscode.Uri) => {
 			await showBytecode(fileUri, { verbose: true });
+		}),
+
+		vscode.window.registerTreeDataProvider("jarExplorer", jarProvider),
+		vscode.workspace.registerTextDocumentContentProvider("jar-file", jarProvider),
+		vscode.commands.registerCommand("jvm-bytecode-viewer.explore-jar-file", (uri: vscode.Uri | null) => {
+			if (uri instanceof vscode.Uri) {
+				jarProvider.openJar(uri);
+			} else if (vscode.window.activeTextEditor) {
+				jarProvider.openJar(vscode.window.activeTextEditor.document.uri);
+			} else {
+				throw new Error("no jar file provided");
+			}
+		}),
+		vscode.commands.registerCommand("jvm-bytecode-viewer.close-jar-file", (jar: JarNode) => {
+			jarProvider.closeJar(jar.jarUri);
 		})
 	);
-}
 
-class JavapContentProvider implements vscode.TextDocumentContentProvider {
-	onDidChangeEmitter = new vscode.EventEmitter<vscode.Uri>();
-	onDidChange = this.onDidChangeEmitter.event;
+	async function showBytecode(arg: vscode.Uri | JarNode | null, { verbose = false }: { verbose?: boolean } = {}) {
+		let currentFilePath;
+		if (arg instanceof JarNode && arg.command) {
+			currentFilePath = arg.resourceUri.path;
+		} else if (arg instanceof vscode.Uri) {
+			currentFilePath = arg.fsPath;
+		} else if (vscode.window.activeTextEditor) {
+			currentFilePath = vscode.window.activeTextEditor.document.uri.fsPath;
+		} else {
+			throw new Error("no bytecode file provided");
+		}
 
-	public provideTextDocumentContent(uri: vscode.Uri): Thenable<string> {
-		return new Promise((resolve, reject) => {
-			let javapArgs = [];
+		const currentClassFile = utils.classFile(currentFilePath);
+		const bytecodePath = utils.bytecodeFile(currentClassFile, { verbose });
+		const bytecodeUri = vscode.Uri.file(bytecodePath).with({ scheme: "javap" });
 
-			if (/\.bytecode\.verbose$/.test(uri.fsPath)) {
-				javapArgs.push("-verbose");
-			} else if (/\.bytecode$/.test(uri.fsPath)) {
-				javapArgs.push("-c", "-private");
-			} else {
-				reject("invalid file extension");
-			}
+		await vscode.window.showTextDocument(bytecodeUri);
 
-			javapArgs.push("-constants", classFile(uri.fsPath));
-
-			output.appendLine(["Command:", "javap", ...javapArgs].join(" "));
-			const command = child_process.execFile("javap", javapArgs);
-
-			let stdout = "";
-			let stderr = "";
-
-			command.stdout?.on("data", (data: { toString(): string }) => {
-				stdout += data.toString();
+		if (!utils.isInJar(currentFilePath)) {
+			const fsWatcher = fs.watch(currentClassFile, () => {
+				utils.output.appendLine(`Updated: ${bytecodePath}`);
+				javapProvider.onDidChangeEmitter.fire(bytecodeUri);
 			});
-
-			command.stderr?.on("data", (data: { toString(): string }) => {
-				stderr += data.toString();
-			});
-
-			command.on("close", (code: number) => {
-				if (code === 0) resolve(stdout);
-				else {
-					output.appendLine("Command Failed:");
-					output.appendLine(stderr.replace(/^/gm, "\t")); // indent stderr
-					reject(stderr);
-				}
-			});
-
-			command.on("error", (error) => {
-				output.appendLine(`Command Failed: ${error.message}`);
-				throw reject(error.message);
-			});
-		});
+			context.subscriptions.push({ dispose: () => fsWatcher.close() });
+		}
 	}
-}
-
-async function getCurrentFile(fileUri: vscode.Uri): Promise<vscode.Uri> {
-	if (fileUri !== undefined && fileUri !== null) return fileUri;
-
-	const editor = vscode.window.activeTextEditor;
-	if (editor !== undefined && editor !== null) return editor.document.uri;
-
-	throw "no .class file provided.";
-}
-
-function classFile(bytecodeFile: string): string {
-	return bytecodeFile.replace(/\.bytecode(\.verbose)?$/, ".class");
-}
-
-function bytecodeFile(classFile: string, { verbose = false }: { verbose?: boolean } = {}): string {
-	return verbose === true
-		? classFile.replace(/\.class$/, ".bytecode.verbose")
-		: classFile.replace(/\.class$/, ".bytecode");
 }
