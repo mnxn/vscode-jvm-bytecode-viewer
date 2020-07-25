@@ -27,7 +27,8 @@
 	},
 	"activationEvents": [
 		"onCommand:jvm-bytecode-viewer.show-bytecode",
-		"onCommand:jvm-bytecode-viewer.show-bytecode-verbose"
+		"onCommand:jvm-bytecode-viewer.show-bytecode-verbose",
+		"onCommand:jvm-bytecode-viewer.explore-jar-file"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -59,11 +60,23 @@
 		"commands": [
 			{
 				"command": "jvm-bytecode-viewer.show-bytecode",
-				"title": "Show JVM Bytecode"
+				"title": "Show Bytecode",
+				"category": "JVM Bytecode Viewer"
 			},
 			{
 				"command": "jvm-bytecode-viewer.show-bytecode-verbose",
-				"title": "Show JVM Bytecode (Verbose)"
+				"title": "Show Bytecode (Verbose)",
+				"category": "JVM Bytecode Viewer"
+			},
+			{
+				"command": "jvm-bytecode-viewer.explore-jar-file",
+				"title": "Explore Jar File",
+				"category": "JVM Bytecode Viewer"
+			},
+			{
+				"command": "jvm-bytecode-viewer.close-jar-file",
+				"title": "Close Jar File",
+				"category": "JVM Bytecode Viewer"
 			}
 		],
 		"menus": {
@@ -89,6 +102,11 @@
 					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
 					"when": "resourceExtname == .bytecode && config.jvm-bytecode-viewer.editorTitleBar",
 					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.explore-jar-file",
+					"when": "resourceExtname == .jar && config.jvm-bytecode-viewer.editorTitleBar",
+					"group": "navigation"
 				}
 			],
 			"editor/title/context": [
@@ -100,6 +118,21 @@
 				{
 					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
 					"when": "resourceExtname == .class && config.jvm-bytecode-viewer.editorTitleBarContextMenu",
+					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode",
+					"when": "resourceExtname == .verbose && config.jvm-bytecode-viewer.editorTitleBarContextMenu",
+					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
+					"when": "resourceExtname == .bytecode && config.jvm-bytecode-viewer.editorTitleBarContextMenu",
+					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.explore-jar-file",
+					"when": "resourceExtname == .jar && config.jvm-bytecode-viewer.editorTitleBarContextMenu",
 					"group": "navigation"
 				}
 			],
@@ -113,6 +146,36 @@
 					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
 					"when": "resourceExtname == .class && !explorerResourceIsFolder && config.jvm-bytecode-viewer.explorerContextMenu",
 					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.explore-jar-file",
+					"when": "resourceExtname == .jar",
+					"group": "navigation"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode",
+					"when": "viewItem == class",
+					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.show-bytecode-verbose",
+					"when": "viewItem == class",
+					"group": "navigation"
+				},
+				{
+					"command": "jvm-bytecode-viewer.close-jar-file",
+					"when": "viewItem == jar",
+					"group": "navigation"
+				}
+			]
+		},
+		"views": {
+			"explorer": [
+				{
+					"id": "jarExplorer",
+					"name": "Jar Explorer"
 				}
 			]
 		},
@@ -157,8 +220,12 @@
 		"watch": "tsc -watch -p ./"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.44.0",
-		"@types/node": "^13.11.0",
-		"typescript": "^3.8.3"
+		"@types/adm-zip": "^0.4.33",
+		"@types/vscode": "^1.47.0",
+		"@types/node": "^14.0.26",
+		"typescript": "^3.9.7"
+	},
+	"dependencies": {
+		"adm-zip": "^0.4.16"
 	}
 }
