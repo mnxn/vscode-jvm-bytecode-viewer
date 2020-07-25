@@ -23,7 +23,7 @@
 	},
 	"homepage": "https://github.com/mnxn/vscode-jvm-bytecode-viewer/blob/master/README.md",
 	"engines": {
-		"vscode": "^1.44.0"
+		"vscode": "^1.47.0"
 	},
 	"activationEvents": [
 		"onCommand:jvm-bytecode-viewer.show-bytecode",
