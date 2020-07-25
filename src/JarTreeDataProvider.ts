@@ -43,7 +43,7 @@ export class JarNode implements JarNode, vscode.TreeItem {
 	async getText(uri: vscode.Uri): Promise<string> {
 		return new Promise((resolve, reject) => {
 			try {
-				const localPath = uri.path.substr(uri.path.indexOf("!") + 1);
+				const localPath = uri.path.substr(uri.path.indexOf("!") + 2);
 				this.zip?.readAsTextAsync(localPath, resolve);
 			} catch (error) {
 				reject(error.toString());
