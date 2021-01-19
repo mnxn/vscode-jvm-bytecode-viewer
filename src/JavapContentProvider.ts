@@ -9,19 +9,17 @@ export default class JavapContentProvider implements vscode.TextDocumentContentP
 
 	provideTextDocumentContent(uri: vscode.Uri): Promise<string> {
 		return new Promise((resolve, _reject) => {
-			let javapArgs: string[] = [];
+			let javapArgs: string[] = ["-c", "-constants", "-private"];
 			if (/\.bytecode\.verbose$/.test(uri.fsPath)) {
-				javapArgs.push("-verbose");
-			} else if (/\.bytecode$/.test(uri.fsPath)) {
-				javapArgs.push("-c", "-private");
-			} else {
+				javapArgs.push("-verbose", "-l");
+			} else if (!/\.bytecode$/.test(uri.fsPath)) {
 				throw new Error("invalid file extension");
 			}
 
 			if (utils.isInJar(uri.fsPath)) {
-				javapArgs.push("-constants", utils.classFile("jar:file:" + uri.path.replace(/ /g, "%20")));
+				javapArgs.push(utils.classFile("jar:file:" + uri.path.replace(/ /g, "%20")));
 			} else {
-				javapArgs.push("-constants", utils.classFile(uri.fsPath));
+				javapArgs.push(utils.classFile(uri.fsPath));
 			}
 
 			utils.output.appendLine(["Command:", "javap", ...javapArgs].join(" "));
