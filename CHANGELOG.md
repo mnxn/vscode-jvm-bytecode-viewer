@@ -1,3 +1,7 @@
+## 0.3.1
+
+- Fix showing of private members in verbose output
+
 ## 0.3.0
 
 - Allowing opening `.class` files inside Jar files with `Jar Explorer`
