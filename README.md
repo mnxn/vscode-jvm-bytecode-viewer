@@ -52,3 +52,7 @@ The Jar file can be closed by right-clicking the Jar file in the `Jar Explorer` 
 - The verbose output of `javap` is significantly more complicated than the normal output so there may be some inconsistencies with its highlighting.
 - If you see highlighting that you think is incorrect, please [submit an issue](https://github.com/mnxn/vscode-jvm-bytecode-viewer/issues/new) with a screenshot.
 - The Jar exploration code was adapted from https://github.com/stef-levesque/vscode-zipexplorer
+
+## Licenses
+
+View [NOTICE.md](NOTICE.md) for license notices.
