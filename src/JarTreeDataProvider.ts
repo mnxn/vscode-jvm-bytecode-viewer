@@ -115,6 +115,8 @@ export class JarTreeDataProvider implements vscode.TreeDataProvider<JarNode>, vs
 		this.jarRoots = this.jarRoots.filter((jar) => jar.jarUri.path !== fileUri.path);
 		this.jarRoots.push(new JarNode(fileUri));
 		this.onDidChangeTreeDataEmitter.fire();
+
+		vscode.commands.executeCommand("jarExplorer.focus");
 	}
 
 	closeJar(targetJar: vscode.Uri) {
