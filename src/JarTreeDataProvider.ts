@@ -43,10 +43,10 @@ export class JarNode implements JarNode, vscode.TreeItem {
 	async getText(uri: vscode.Uri): Promise<string> {
 		return new Promise((resolve, reject) => {
 			try {
-				const localPath = uri.path.substr(uri.path.indexOf("!") + 2);
+				const localPath = uri.path.slice(uri.path.indexOf("!") + 2);
 				this.zip?.readAsTextAsync(localPath, resolve);
 			} catch (error) {
-				reject(error.toString());
+				reject(error instanceof Error ? error.toString() : String(error));
 			}
 		});
 	}
@@ -88,9 +88,7 @@ export class JarNode implements JarNode, vscode.TreeItem {
 			case "file":
 				return open("jar-file", this.resourceUri.path);
 			case "class":
-				const verbose = vscode.workspace
-					.getConfiguration("jvm-bytecode-viewer")
-					.get("defaultToVerboseOutput") as boolean;
+				const verbose = vscode.workspace.getConfiguration("jvm-bytecode-viewer").get<boolean>("defaultToVerboseOutput");
 				return open("javap", utils.bytecodeFile(this.resourceUri.path, { verbose }));
 			default:
 				return undefined;
