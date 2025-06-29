@@ -22,8 +22,11 @@ export default class JavapContentProvider implements vscode.TextDocumentContentP
 				javapArgs.push(utils.classFile(uri.fsPath));
 			}
 
-			utils.output.appendLine(["Command:", "javap", ...javapArgs].join(" "));
-			const command = child_process.execFile("javap", javapArgs);
+			const config = vscode.workspace.getConfiguration("jvm-bytecode-viewer");
+			const javapPath = config.get<string>("javapPath", "javap");
+
+			utils.output.appendLine(["Command:", javapPath, ...javapArgs].join(" "));
+			const command = child_process.execFile(javapPath, javapArgs);
 
 			let stdout = "";
 			let stderr = "";

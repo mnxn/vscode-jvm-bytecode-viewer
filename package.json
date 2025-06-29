@@ -25,11 +25,6 @@
 	"engines": {
 		"vscode": "^1.52.0"
 	},
-	"activationEvents": [
-		"onCommand:jvm-bytecode-viewer.show-bytecode",
-		"onCommand:jvm-bytecode-viewer.show-bytecode-verbose",
-		"onCommand:jvm-bytecode-viewer.explore-jar-file"
-	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"configuration": {
@@ -54,6 +49,11 @@
 					"type": "boolean",
 					"default": true,
 					"description": "Whether to show commands in the explorer context menu"
+				},
+				"jvm-bytecode-viewer.javapPath": {
+					"type": "string",
+					"default": "javap",
+					"description": "Path to the javap executable. You can specify an absolute path or just 'javap' to use the executable from the PATH."
 				}
 			}
 		},
