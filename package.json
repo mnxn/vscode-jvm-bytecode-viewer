@@ -185,7 +185,8 @@
 			"explorer": [
 				{
 					"id": "jarExplorer",
-					"name": "Jar Explorer"
+					"name": "Jar Explorer",
+					"icon": "images/icon.png"
 				}
 			]
 		},
