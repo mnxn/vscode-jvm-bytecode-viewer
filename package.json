@@ -3,7 +3,7 @@
 	"displayName": "JVM Bytecode Viewer",
 	"description": "Show the JVM Bytecode for a .class file",
 	"icon": "images/icon.png",
-	"version": "0.3.1",
+	"version": "0.4.0",
 	"publisher": "mnxn",
 	"license": "MIT",
 	"categories": [
@@ -26,6 +26,7 @@
 		"vscode": "^1.52.0"
 	},
 	"main": "./out/extension.js",
+	"activationEvents": [],
 	"contributes": {
 		"configuration": {
 			"title": "JVM Bytecode Viewer",

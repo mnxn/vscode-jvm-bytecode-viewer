@@ -1,3 +1,9 @@
+## 0.4.0
+
+- Add configurable `javap` path (`jvm-bytecode-viewer.javapPath`).
+- Add icon to explorer view
+- Focus Jar Explorer view after opening a .jar file
+
 ## 0.3.1
 
 - Fix showing of private members in verbose output
